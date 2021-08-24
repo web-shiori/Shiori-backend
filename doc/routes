@@ -1,11 +1,35 @@
-                   Prefix Verb   URI Pattern                                                                              Controller#Action
-         v1_content_index GET    /v1/content(.:format)                                                                    v1/content#index {:format=>/json/}
-                          POST   /v1/content(.:format)                                                                    v1/content#create {:format=>/json/}
-               v1_content PATCH  /v1/content/:id(.:format)                                                                v1/content#update {:format=>/json/}
-                          PUT    /v1/content/:id(.:format)                                                                v1/content#update {:format=>/json/}
-                          DELETE /v1/content/:id(.:format)                                                                v1/content#destroy {:format=>/json/}
-       rails_service_blob GET    /rails/active_storage/blobs/:signed_id/*filename(.:format)                               active_storage/blobs#show
-rails_blob_representation GET    /rails/active_storage/representations/:signed_blob_id/:variation_key/*filename(.:format) active_storage/representations#show
-       rails_disk_service GET    /rails/active_storage/disk/:encoded_key/*filename(.:format)                              active_storage/disk#show
-update_rails_disk_service PUT    /rails/active_storage/disk/:encoded_token(.:format)                                      active_storage/disk#update
-     rails_direct_uploads POST   /rails/active_storage/direct_uploads(.:format)                                           active_storage/direct_uploads#create
+                     Prefix Verb     URI Pattern                                                                              Controller#Action
+           v1_content_index GET      /v1/content(.:format)                                                                    v1/content#index {:format=>/json/}
+                            POST     /v1/content(.:format)                                                                    v1/content#create {:format=>/json/}
+                 v1_content PATCH    /v1/content/:id(.:format)                                                                v1/content#update {:format=>/json/}
+                            PUT      /v1/content/:id(.:format)                                                                v1/content#update {:format=>/json/}
+                            DELETE   /v1/content/:id(.:format)                                                                v1/content#destroy {:format=>/json/}
+        new_v1_user_session GET      /v1/auth/sign_in(.:format)                                                               devise_token_auth/sessions#new {:format=>/json/}
+            v1_user_session POST     /v1/auth/sign_in(.:format)                                                               devise_token_auth/sessions#create {:format=>/json/}
+    destroy_v1_user_session DELETE   /v1/auth/sign_out(.:format)                                                              devise_token_auth/sessions#destroy {:format=>/json/}
+       new_v1_user_password GET      /v1/auth/password/new(.:format)                                                          devise_token_auth/passwords#new {:format=>/json/}
+      edit_v1_user_password GET      /v1/auth/password/edit(.:format)                                                         devise_token_auth/passwords#edit {:format=>/json/}
+           v1_user_password PATCH    /v1/auth/password(.:format)                                                              devise_token_auth/passwords#update {:format=>/json/}
+                            PUT      /v1/auth/password(.:format)                                                              devise_token_auth/passwords#update {:format=>/json/}
+                            POST     /v1/auth/password(.:format)                                                              devise_token_auth/passwords#create {:format=>/json/}
+cancel_v1_user_registration GET      /v1/auth/cancel(.:format)                                                                devise_token_auth/registrations#cancel {:format=>/json/}
+   new_v1_user_registration GET      /v1/auth/sign_up(.:format)                                                               devise_token_auth/registrations#new {:format=>/json/}
+  edit_v1_user_registration GET      /v1/auth/edit(.:format)                                                                  devise_token_auth/registrations#edit {:format=>/json/}
+       v1_user_registration PATCH    /v1/auth(.:format)                                                                       devise_token_auth/registrations#update {:format=>/json/}
+                            PUT      /v1/auth(.:format)                                                                       devise_token_auth/registrations#update {:format=>/json/}
+                            DELETE   /v1/auth(.:format)                                                                       devise_token_auth/registrations#destroy {:format=>/json/}
+                            POST     /v1/auth(.:format)                                                                       devise_token_auth/registrations#create {:format=>/json/}
+   new_v1_user_confirmation GET      /v1/auth/confirmation/new(.:format)                                                      devise_token_auth/confirmations#new {:format=>/json/}
+       v1_user_confirmation GET      /v1/auth/confirmation(.:format)                                                          devise_token_auth/confirmations#show {:format=>/json/}
+                            POST     /v1/auth/confirmation(.:format)                                                          devise_token_auth/confirmations#create {:format=>/json/}
+     v1_auth_validate_token GET      /v1/auth/validate_token(.:format)                                                        devise_token_auth/token_validations#validate_token
+            v1_auth_failure GET      /v1/auth/failure(.:format)                                                               users/omniauth_callbacks#omniauth_failure
+                            GET      /v1/auth/:provider/callback(.:format)                                                    users/omniauth_callbacks#omniauth_success
+                            GET|POST /omniauth/:provider/callback(.:format)                                                   users/omniauth_callbacks#redirect_callbacks
+           omniauth_failure GET|POST /omniauth/failure(.:format)                                                              users/omniauth_callbacks#omniauth_failure
+                            GET      /v1/auth/:provider(.:format)                                                             redirect(301)
+         rails_service_blob GET      /rails/active_storage/blobs/:signed_id/*filename(.:format)                               active_storage/blobs#show
+  rails_blob_representation GET      /rails/active_storage/representations/:signed_blob_id/:variation_key/*filename(.:format) active_storage/representations#show
+         rails_disk_service GET      /rails/active_storage/disk/:encoded_key/*filename(.:format)                              active_storage/disk#show
+  update_rails_disk_service PUT      /rails/active_storage/disk/:encoded_token(.:format)                                      active_storage/disk#update
+       rails_direct_uploads POST     /rails/active_storage/direct_uploads(.:format)                                           active_storage/direct_uploads#create
