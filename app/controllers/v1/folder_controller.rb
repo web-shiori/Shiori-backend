@@ -1,6 +1,6 @@
 class V1::FolderController < V1::ApplicationController
   before_action :authenticate_v1_user!
-  before_action :correct_user, only: [:update, :destroy]
+  before_action :correct_user, only: [:update, :destroy, :content_list, :add_content_to_folder, :remove_content_to_folder]
 
   def index
     @folder = current_v1_user.folder
@@ -44,15 +44,30 @@ class V1::FolderController < V1::ApplicationController
   # Q: ↓のメソッドは独自にコントローラーを作るべきなのか？わからない
   # 指定したfolder内のコンテンツ一覧を返す
   def content_list
-    folder = Folder.find(params[:folder_id])
-    @content = folder.content.order('created_at DESC')
-                     .where()
+    @content = @folder.content.order('created_at DESC')
+                      .where('LOWER(title) LIKE ?', "%#{params[:q]}%")
+                      .page(params[:page])
+                      .per(params[:per_page])
+    @meta = {
+      q: params[:q],
+      page: params[:page],
+      per_page: params[:per_page],
+      netxPage: @content.next_page
+    }
+    render json: {
+      meta: @meta,
+      data: {
+        content: @content
+      }
+    }
   end
 
+  # コンテンツをフォルダに追加する
   def add_content_to_folder
 
   end
 
+  # フォルダからコンテンツを削除する
   def remove_content_to_folder
 
   end
