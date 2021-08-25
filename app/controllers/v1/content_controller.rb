@@ -26,10 +26,8 @@ class V1::ContentController < V1::ApplicationController
 
   def create
     @content = current_v1_user.content.build(content_params)
-    # TODO: サムネイルのurlを追加
-    # TODO: typeを設定
     if @content.save
-      render json: {
+      render status: :created, json: {
         data: @content
       }
     else
