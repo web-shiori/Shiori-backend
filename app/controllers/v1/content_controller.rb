@@ -42,6 +42,11 @@ class V1::ContentController < V1::ApplicationController
     end
   end
 
+  def destroy
+    Content.find(params[:id]).destroy
+    head :no_content
+  end
+
   private def content_params
     params.permit(
       :title,
