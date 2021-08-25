@@ -7,8 +7,8 @@ class V1::ContentController < ApplicationController
     #                   # .per(params[per_page)
     @content = Content.order('created_at DESC')
                       .where('LOWER(title) LIKE ?', "%#{params[:q]}%")
-                      # .page(page)
-                      # .per(params[per_page)
+                      .page(params[:page])
+                      .per(params[:per_page])
     render json: @content
   end
 
