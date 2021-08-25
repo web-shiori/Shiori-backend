@@ -1,6 +1,5 @@
 Content.create(
   user_id: 1,
-  type: "web",
   title: "Web-Shioriデモ動画",
   url: "https://www.youtube.com/watch?v=1DcjMwkmNvA",
   sharing_url: "https://www.youtube.com/watch?v=1DcjMwkmNvA",
