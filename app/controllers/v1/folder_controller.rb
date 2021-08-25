@@ -35,6 +35,11 @@ class V1::FolderController < V1::ApplicationController
     end
   end
 
+  def destroy
+    Folder.find(params[:id]).destroy
+    head :no_content
+  end
+
   private def folder_params
     params.permit(:name)
   end
