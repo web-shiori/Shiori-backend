@@ -10,10 +10,31 @@ class Content < ApplicationRecord
   validates :sharing_url, presence: true
 
   before_validation :set_sharing_url
+  before_save :set_thumbnail_img_url
+  before_save :set_content_type
 
+  # シェア用のURLを追加する
   private def set_sharing_url
-    # NOTE: シェア用のURLを追加する。暫定でurlをそのまま入れる
+    # TODO: シェア用のURLを生成する。暫定でurlをそのまま入れる
     self.sharing_url = self.url
+  end
+
+  # サムネイル画像のURLを設定する
+  private def set_thumbnail_img_url
+    # TODO: サムネイルurlをコンテンツのサイトから取得する。暫定でにぶちゃんの画像を入れる
+    self.thumbnail_img_url = "https://i.ytimg.com/vi/xP_Ovd8-GM8/maxresdefault.jpg"
+  end
+
+  # コンテンツのタイプを設定する
+  private def set_content_type
+    self.type =
+      if self.video_playback_position != 0
+        "video"
+      elsif self.file_url != nil
+        "file"
+      else
+        "web"
+      end
   end
 
 end
