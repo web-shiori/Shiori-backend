@@ -1,7 +1,13 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+Content.create(
+  user_id: 1,
+  title: "Web-Shioriデモ動画",
+  url: "https://www.youtube.com/watch?v=1DcjMwkmNvA",
+  sharing_url: "https://www.youtube.com/watch?v=1DcjMwkmNvA",
+  thumbnail_img_url: "https://i.ytimg.com/vi/xP_Ovd8-GM8/maxresdefault.jpg",
+  scroll_position_x: 0,
+  scroll_position_y: 500,
+  max_scroll_position_x: 0,
+  max_scroll_position_y: 1000,
+  video_playback_position: 50,
+  delete_flag: false
+)
