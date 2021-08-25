@@ -19,7 +19,9 @@ class V1::ContentController < ApplicationController
 
     render json: {
       meta: @meta,
-      data: @content
+      data: {
+        content: @content
+      }
     }
   end
 
