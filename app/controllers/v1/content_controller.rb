@@ -1,11 +1,9 @@
-class V1::ContentController < ApplicationController
+class V1::ContentController < V1::ApplicationController
+  before_action :authenticate_v1_user!
+
   def index
-    # @content = Content.order('created_at DESC')
-    #                   # .where(user_id: current_user.id)
-    #                   # .search_by_keyword(query)
-    #                   # .page(page)
-    #                   # .per(params[per_page)
     @content = Content.order('created_at DESC')
+                      .where(user_id: current_v1_user.id)
                       .where('LOWER(title) LIKE ?', "%#{params[:q]}%")
                       .page(params[:page])
                       .per(params[:per_page])
