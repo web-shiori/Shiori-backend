@@ -27,11 +27,18 @@ class V1::ContentController < V1::ApplicationController
   def create
     @content = current_v1_user.content.build(content_params)
     if @content.save
-      render status: :created, json: {
-        data: @content
-      }
+      render status: :created, json: { data: @content }
     else
       render status: :bad_request, json: { "message": 'content creation faild' }
+    end
+  end
+
+  def update
+    @content = Content.find(params[:id])
+    if @content.update(content_params)
+      render json: { data: @content }
+    else
+      render status: :bad_request, json: { "message": 'content updation faild' }
     end
   end
 
