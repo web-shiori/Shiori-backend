@@ -36,7 +36,6 @@ class V1::ContentController < V1::ApplicationController
   end
 
   def update
-    @content = Content.find(params[:id])
     if @content.update(content_params)
       render json: { data: @content }
     else
@@ -45,7 +44,7 @@ class V1::ContentController < V1::ApplicationController
   end
 
   def destroy
-    Content.find(params[:id]).destroy
+    @content.destroy
     head :no_content
   end
 
