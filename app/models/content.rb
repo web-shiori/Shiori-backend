@@ -27,7 +27,7 @@ class Content < ApplicationRecord
 
   # コンテンツのタイプを設定する
   private def set_content_type
-    self.type =
+    self.content_type =
       if self.video_playback_position != 0
         "video"
       elsif self.file_url != nil
