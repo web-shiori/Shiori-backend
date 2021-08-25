@@ -9,4 +9,11 @@ class Content < ApplicationRecord
   validates :url, presence: true
   validates :sharing_url, presence: true
 
+  before_validation :set_sharing_url
+
+  private def set_sharing_url
+    # NOTE: シェア用のURLを追加する。暫定でurlをそのまま入れる
+    self.sharing_url = self.url
+  end
+
 end
