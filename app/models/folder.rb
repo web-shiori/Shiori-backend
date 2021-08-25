@@ -1,5 +1,8 @@
 class Folder < ApplicationRecord
-  has_many :contents, through: :content_folders
+  self.table_name = "folder"
+
+  has_many :content_folder
+  has_many :content, through: :content_folder
 
   validates :name, presence: true, length: { maximum: 255 }
 end
