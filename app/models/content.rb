@@ -1,5 +1,6 @@
 class Content < ApplicationRecord
   self.table_name = "content"
+  paginates_per 50
 
   belongs_to :user
 
