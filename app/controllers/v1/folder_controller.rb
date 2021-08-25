@@ -75,7 +75,9 @@ class V1::FolderController < V1::ApplicationController
 
   # フォルダからコンテンツを削除する
   def remove_content_to_folder
-
+    @content_folder = ContentFolder.find_by(content_id: @content.id, folder_id: @folder.id)
+    @content_folder.destroy
+    head :no_content
   end
 
   private def correct_user
