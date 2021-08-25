@@ -1,5 +1,6 @@
 class V1::FolderController < V1::ApplicationController
   before_action :authenticate_v1_user!
+  before_action :correct_user, only: [:update, :destroy]
 
   def index
     @folder = current_v1_user.folder
@@ -28,7 +29,6 @@ class V1::FolderController < V1::ApplicationController
   end
 
   def update
-    @folder = Folder.find(params[:id])
     if @folder.update(folder_params)
       render json: { data: @folder }
     else
@@ -37,8 +37,29 @@ class V1::FolderController < V1::ApplicationController
   end
 
   def destroy
-    Folder.find(params[:id]).destroy
+    @folder.destroy
     head :no_content
+  end
+
+  # Q: ↓のメソッドは独自にコントローラーを作るべきなのか？わからない
+  # 指定したfolder内のコンテンツ一覧を返す
+  def content_list
+    folder = Folder.find(params[:folder_id])
+    @content = folder.content.order('created_at DESC')
+                     .where()
+  end
+
+  def add_content_to_folder
+
+  end
+
+  def remove_content_to_folder
+
+  end
+
+  private def correct_user
+    @folder = current_v1_user.folder.find_by(id: params[:id])
+    render status: :forbidden, json: { "message": 'fobidden' } if @folder.nil?
   end
 
   private def folder_params
