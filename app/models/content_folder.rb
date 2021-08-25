@@ -4,5 +4,5 @@ class ContentFolder < ApplicationRecord
   belongs_to :content, class_name: "Content"
   belongs_to :folder, class_name: "Folder"
 
-  validates :content_id, uniqueness: { scope: :folders_id }
+  validates :content_id, uniqueness: { scope: :folder_id }
 end

@@ -1,6 +1,7 @@
 class V1::FolderController < V1::ApplicationController
   before_action :authenticate_v1_user!
   before_action :correct_user, only: [:update, :destroy, :content_list, :add_content_to_folder, :remove_content_to_folder]
+  before_action :correct_user_for_content_folder, only: [:add_content_to_folder, :remove_content_to_folder]
 
   def index
     @folder = current_v1_user.folder
@@ -64,7 +65,12 @@ class V1::FolderController < V1::ApplicationController
 
   # コンテンツをフォルダに追加する
   def add_content_to_folder
-
+    @content_folder = ContentFolder.new(content_id: @content.id, folder_id: @folder.id)
+    if @content_folder.save
+      head :created
+    else
+      render status: :bad_request, json: { "message": 'adding content to folder faild' }
+    end
   end
 
   # フォルダからコンテンツを削除する
@@ -75,6 +81,11 @@ class V1::FolderController < V1::ApplicationController
   private def correct_user
     @folder = current_v1_user.folder.find_by(id: params[:id])
     render status: :forbidden, json: { "message": 'fobidden' } if @folder.nil?
+  end
+
+  private def correct_user_for_content_folder
+    @content = current_v1_user.content.find_by(id: params[:content_id])
+    render status: :forbidden, json: { "message": 'fobidden' } if @content.nil?
   end
 
   private def folder_params
