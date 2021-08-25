@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_25_131225) do
+ActiveRecord::Schema.define(version: 2021_08_25_133024) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,9 @@ ActiveRecord::Schema.define(version: 2021_08_25_131225) do
 
   create_table "folder", force: :cascade do |t|
     t.string "name", null: false
+    t.bigint "user_id"
+    t.index ["id", "user_id"], name: "index_folder_on_id_and_user_id"
+    t.index ["user_id"], name: "index_folder_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -71,4 +74,5 @@ ActiveRecord::Schema.define(version: 2021_08_25_131225) do
   add_foreign_key "content", "users"
   add_foreign_key "content_folder", "content"
   add_foreign_key "content_folder", "folder"
+  add_foreign_key "folder", "users"
 end
