@@ -2,8 +2,8 @@ class V1::FolderController < V1::ApplicationController
   before_action :authenticate_v1_user!
 
   def index
-    @folders = Folder.all
-    @folders = @folders.map do |folder|
+    @folder = Folder.all
+    @folder = @folder.map do |folder|
       {
         folder_id: folder.id,
         name: folder.name,
@@ -12,10 +12,21 @@ class V1::FolderController < V1::ApplicationController
     end
     render json: {
       data: {
-        folder: @folders
+        folder: @folder
       }
     }
   end
 
+  def create
+    @folder = Folder.new(folder_params)
+    if @folder.save
+      render status: :created, json: { data: @folder }
+    else
+      render status: :bad_request, json: { "message": 'folder creation faild' }
+    end
+  end
 
+  private def folder_params
+    params.permit(:name)
+  end
 end
