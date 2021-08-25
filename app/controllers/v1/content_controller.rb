@@ -9,7 +9,18 @@ class V1::ContentController < ApplicationController
                       .where('LOWER(title) LIKE ?', "%#{params[:q]}%")
                       .page(params[:page])
                       .per(params[:per_page])
-    render json: @content
+
+    @meta = {
+      q: params[:q],
+      page: params[:page],
+      per_page: params[:per_page],
+      netxPage: @content.next_page
+    }
+
+    render json: {
+      meta: @meta,
+      data: @content
+    }
   end
 
 
