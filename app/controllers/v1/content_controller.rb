@@ -4,8 +4,7 @@ class V1::ContentController < V1::ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    @content = Content.order('created_at DESC')
-                      .where(user_id: current_v1_user.id)
+    @content = current_v1_user.content.order('created_at DESC')
                       .where('LOWER(title) LIKE ?', "%#{params[:q]}%")
                       .where(liked: !!params[:liked])
                       .page(params[:page])
