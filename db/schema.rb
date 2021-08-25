@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_25_123204) do
+ActiveRecord::Schema.define(version: 2021_08_25_130748) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,14 +41,14 @@ ActiveRecord::Schema.define(version: 2021_08_25_123204) do
     t.index ["user_id"], name: "index_content_on_user_id"
   end
 
-  create_table "content_folders", force: :cascade do |t|
+  create_table "content_folder", force: :cascade do |t|
     t.bigint "folders_id"
     t.bigint "content_id"
-    t.index ["content_id"], name: "index_content_folders_on_content_id"
-    t.index ["folders_id"], name: "index_content_folders_on_folders_id"
+    t.index ["content_id"], name: "index_content_folder_on_content_id"
+    t.index ["folders_id"], name: "index_content_folder_on_folders_id"
   end
 
-  create_table "folders", force: :cascade do |t|
+  create_table "folder", force: :cascade do |t|
     t.string "name", null: false
   end
 
@@ -69,6 +69,6 @@ ActiveRecord::Schema.define(version: 2021_08_25_123204) do
   end
 
   add_foreign_key "content", "users"
-  add_foreign_key "content_folders", "content"
-  add_foreign_key "content_folders", "folders", column: "folders_id"
+  add_foreign_key "content_folder", "content"
+  add_foreign_key "content_folder", "folder", column: "folders_id"
 end
