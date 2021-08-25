@@ -2,10 +2,11 @@ class V1::FolderController < V1::ApplicationController
   before_action :authenticate_v1_user!
 
   def index
-    @folder = Folder.all
+    @folder = current_v1_user.folder
     @folder = @folder.map do |folder|
       {
         folder_id: folder.id,
+        user_id: folder.user_id,
         name: folder.name,
         content_count: folder.content.length
       }
@@ -18,7 +19,7 @@ class V1::FolderController < V1::ApplicationController
   end
 
   def create
-    @folder = Folder.new(folder_params)
+    @folder = current_v1_user.folder.build(folder_params)
     if @folder.save
       render status: :created, json: { data: @folder }
     else
