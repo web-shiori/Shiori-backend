@@ -1,5 +1,6 @@
 class V1::ContentController < V1::ApplicationController
   before_action :authenticate_v1_user!
+  before_action :correct_user, only: [:update, :destroy]
   skip_before_action :verify_authenticity_token
 
   def index
@@ -45,6 +46,11 @@ class V1::ContentController < V1::ApplicationController
   def destroy
     Content.find(params[:id]).destroy
     head :no_content
+  end
+
+  private def correct_user
+    @content = current_v1_user.content.find_by(id: params[:id])
+    render status: :forbidden, json: { "message": 'fobidden' } if @content.nil?
   end
 
   private def content_params
