@@ -6,5 +6,5 @@ class User < ApplicationRecord
   include DeviseTokenAuth::Concerns::User
 
   has_many :content, dependent: :destroy
-
+  has_many :folder, dependent: :destroy
 end

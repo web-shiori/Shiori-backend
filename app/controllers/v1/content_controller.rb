@@ -4,6 +4,7 @@ class V1::ContentController < V1::ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
+    # TODO: これだとお気に入りに登録されているコンテンツか、登録されていないコンテンツのどちらか一方しか取得できない
     @content = current_v1_user.content.order('created_at DESC')
                       .where('LOWER(title) LIKE ?', "%#{params[:q]}%")
                       .where(liked: !!params[:liked])
@@ -36,7 +37,6 @@ class V1::ContentController < V1::ApplicationController
   end
 
   def update
-    @content = Content.find(params[:id])
     if @content.update(content_params)
       render json: { data: @content }
     else
@@ -45,7 +45,7 @@ class V1::ContentController < V1::ApplicationController
   end
 
   def destroy
-    Content.find(params[:id]).destroy
+    @content.destroy
     head :no_content
   end
 

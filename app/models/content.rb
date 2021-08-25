@@ -3,6 +3,8 @@ class Content < ApplicationRecord
   paginates_per 50
 
   belongs_to :user
+  has_many :content_folder
+  has_many :folder, through: :content_folder
 
   validates :user_id, presence: true
   validates :title, presence: true, length: { maximum: 255 }
