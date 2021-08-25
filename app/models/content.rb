@@ -22,6 +22,7 @@ class Content < ApplicationRecord
   # サムネイル画像のURLを設定する
   private def set_thumbnail_img_url
     # TODO: サムネイルurlをコンテンツのサイトから取得する。暫定でにぶちゃんの画像を入れる
+    # NOTE: 非同期的にやる。デフォルトでセットする画像も準備しておく
     self.thumbnail_img_url = "https://i.ytimg.com/vi/xP_Ovd8-GM8/maxresdefault.jpg"
   end
 
