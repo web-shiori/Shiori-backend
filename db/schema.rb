@@ -10,10 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_24_110553) do
+ActiveRecord::Schema.define(version: 2021_08_25_015100) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "content", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "url", null: false
+    t.string "sharing_url", null: false
+    t.string "file_url"
+    t.string "thumbnail_img_url"
+    t.integer "scroll_position_x"
+    t.integer "scroll_position_y"
+    t.integer "max_scroll_position_x"
+    t.integer "max_scroll_position_y"
+    t.integer "video_playback_position"
+    t.string "specified_text"
+    t.string "specified_dom_id"
+    t.string "specified_dom_class"
+    t.string "specified_dom_tag"
+    t.boolean "delete_flag", default: false, null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
