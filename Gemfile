@@ -37,9 +37,11 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'devise'
 gem 'devise_token_auth'
-gem 'omniauth'
+gem 'omniauth', '>= 1.0.0', '< 2.0.0'
 gem 'omniauth-twitter'
 gem 'kaminari'
+gem 'omniauth-rails_csrf_protection'
+gem 'rack-cors'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
