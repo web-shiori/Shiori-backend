@@ -65,7 +65,8 @@ class V1::ContentController < V1::ApplicationController
       :specified_text,
       :specified_dom_class,
       :specified_dom_id,
-      :specified_dom_tag
+      :specified_dom_tag,
+      :liked
     )
   end
 end
