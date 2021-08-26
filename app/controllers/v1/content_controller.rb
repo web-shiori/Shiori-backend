@@ -57,6 +57,7 @@ class V1::ContentController < V1::ApplicationController
     params.permit(
       :title,
       :url,
+      :thumbnail_img_url,
       :scroll_position_x,
       :scroll_position_y,
       :max_scroll_position_x,
