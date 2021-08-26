@@ -4,12 +4,11 @@ class V1::ContentController < V1::ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    # TODO: これだとお気に入りに登録されているコンテンツか、登録されていないコンテンツのどちらか一方しか取得できない
     @content = current_v1_user.content.order('created_at DESC')
                       .where('LOWER(title) LIKE ?', "%#{params[:q]}%")
-                      .where(liked: !!params[:liked])
                       .page(params[:page])
                       .per(params[:per_page])
+    @content = @content.where(liked: true) if params[:liked]
 
     @meta = {
       q: params[:q],
