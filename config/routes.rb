@@ -1,6 +1,8 @@
 require 'devise_token_auth'
 Rails.application.routes.draw do
   get '/heartbeat' => 'v1/application#heartbeat'
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+
   namespace :v1, {format: 'json'} do
     resources :content, only: %i[index create update destroy]
     resources :folder, only: %i[index create update destroy]

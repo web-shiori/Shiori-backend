@@ -21,11 +21,10 @@ class Content < ApplicationRecord
     self.sharing_url = self.url
   end
 
-  # サムネイル画像のURLを設定する
+  # サムネイル画像がない場合はサムネイル画像のURLを設定する
   private def set_thumbnail_img_url
-    # TODO: サムネイルurlをコンテンツのサイトから取得する。暫定でにぶちゃんの画像を入れる
-    # NOTE: 非同期的にやる。デフォルトでセットする画像も準備しておく
-    self.thumbnail_img_url = "https://i.ytimg.com/vi/xP_Ovd8-GM8/maxresdefault.jpg"
+    default_thumbnail_img_url = "https://i.gyazo.com/826e6fcc8ff7620246066acd1bb40cc6.png"
+    self.thumbnail_img_url = default_thumbnail_img_url if self.thumbnail_img_url.nil?
   end
 
   # コンテンツのタイプを設定する
