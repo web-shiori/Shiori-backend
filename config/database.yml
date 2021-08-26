@@ -10,7 +10,12 @@ development:
   <<: *default
   database: myapp_development
 
-
 test:
   <<: *default
   database: myapp_test
+
+production:
+  <<: *default
+  database: web_shiori_production
+  username: web_shiori
+  password: <%= ENV['WEB_SHIORI_DATABASE_PASSWORD'] %>
