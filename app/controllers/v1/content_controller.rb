@@ -31,7 +31,7 @@ class V1::ContentController < V1::ApplicationController
     if @content.save
       render status: :created, json: { data: @content }
     else
-      render status: :bad_request, json: { "message": 'content creation faild' }
+      render status: :bad_request, json: { "message": "error: #{@content.errors.messages}" }
     end
   end
 
@@ -39,7 +39,7 @@ class V1::ContentController < V1::ApplicationController
     if @content.update(content_params)
       render json: { data: @content }
     else
-      render status: :bad_request, json: { "message": 'content updation faild' }
+      render status: :bad_request, json: { "message": "error: #{@content.errors.messages}" }
     end
   end
 

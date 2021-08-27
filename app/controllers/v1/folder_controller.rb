@@ -25,7 +25,7 @@ class V1::FolderController < V1::ApplicationController
     if @folder.save
       render status: :created, json: { data: @folder }
     else
-      render status: :bad_request, json: { "message": 'folder creation faild' }
+      render status: :bad_request, json: { "message": "error: #{@folder.errors.messages}" }
     end
   end
 
@@ -33,7 +33,7 @@ class V1::FolderController < V1::ApplicationController
     if @folder.update(folder_params)
       render json: { data: @folder }
     else
-      render status: :bad_request, json: { "message": 'folder updation faild' }
+      render status: :bad_request, json: { "message": "error: #{@folder.errors.messages}" }
     end
   end
 
