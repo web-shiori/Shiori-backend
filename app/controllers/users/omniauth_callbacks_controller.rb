@@ -24,7 +24,8 @@ class Users::OmniauthCallbacksController < DeviseTokenAuth::OmniauthCallbacksCon
   end
 
   def render_data_or_redirect(message, data, user_data = {})
-    render json: @resource, status: :ok
+    # render json: @resource, status: :ok
+    head :ok
   end
 
   def set_email
