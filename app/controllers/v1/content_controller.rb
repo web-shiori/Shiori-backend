@@ -28,6 +28,7 @@ class V1::ContentController < V1::ApplicationController
 
   def create
     @content = current_v1_user.content.build(content_params)
+
     if @content.save
       render status: :created, json: { data: @content }
     else
