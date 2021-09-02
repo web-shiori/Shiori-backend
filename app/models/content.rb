@@ -15,6 +15,10 @@ class Content < ApplicationRecord
   before_save :set_thumbnail_img_url
   before_save :set_content_type
 
+  scope :search, ->(q) {
+    where('LOWER(title) LIKE ?', "%#{q}%") unless q.blank?
+  }
+
   # シェア用のURLを追加する
   private def set_sharing_url
     # TODO: シェア用のURLを生成する。暫定でurlをそのまま入れる

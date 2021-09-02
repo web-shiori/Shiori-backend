@@ -5,7 +5,7 @@ class V1::ContentController < V1::ApplicationController
 
   def index
     @content = current_v1_user.content.order('created_at DESC')
-                      .where('LOWER(title) LIKE ?', "%#{params[:q]}%")
+                      .search(params[:q])
                       .page(params[:page])
                       .per(params[:per_page])
     @content = @content.where(liked: true) if params[:liked]
