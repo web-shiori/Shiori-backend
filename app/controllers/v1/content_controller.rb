@@ -8,7 +8,7 @@ class V1::ContentController < V1::ApplicationController
                       .search(params[:q])
                       .page(params[:page])
                       .per(params[:per_page])
-    @content = @content.where(liked: true) if params[:liked]
+    @content = @content.where(liked: true) if params[:liked] == "true"
 
     @meta = {
       q: params[:q],
