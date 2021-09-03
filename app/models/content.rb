@@ -3,7 +3,7 @@ class Content < ApplicationRecord
   paginates_per 50
 
   belongs_to :user
-  has_many :content_folder
+  has_many :content_folder, dependent: :destroy
   has_many :folder, through: :content_folder
 
   validates :user_id, presence: true
