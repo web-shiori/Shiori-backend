@@ -8,12 +8,6 @@ class V1::FolderController < V1::ApplicationController
 
   def index
     @folder = current_v1_user.folder
-    puts @folder.class
-    puts @folder.class
-    puts @folder.class
-    puts @folder.class
-    puts @folder.class
-    puts @folder.class
     @folder = @folder.map do |folder|
       {
         folder_id: folder.id,
