@@ -3,8 +3,17 @@ class V1::FolderController < V1::ApplicationController
   before_action :correct_user, only: [:update, :destroy, :content_list, :add_content_to_folder, :remove_content_to_folder]
   before_action :correct_user_for_content_folder, only: [:add_content_to_folder, :remove_content_to_folder]
 
+  HOME_FOLDER_ID = -1
+  LIKED_FOLDER_ID = -2
+
   def index
     @folder = current_v1_user.folder
+    puts @folder.class
+    puts @folder.class
+    puts @folder.class
+    puts @folder.class
+    puts @folder.class
+    puts @folder.class
     @folder = @folder.map do |folder|
       {
         folder_id: folder.id,
@@ -13,6 +22,19 @@ class V1::FolderController < V1::ApplicationController
         content_count: folder.content.length
       }
     end
+    all_content_folder = {
+      folder_id: HOME_FOLDER_ID,
+      user_id: current_v1_user.id,
+      name: "ホーム",
+      content_count: current_v1_user.content.length
+    }
+    liked_content_folder = {
+      folder_id: LIKED_FOLDER_ID,
+      user_id: current_v1_user.id,
+      name: "お気に入り",
+      content_count: current_v1_user.content.where(liked: true).length
+    }
+    @folder.unshift all_content_folder, liked_content_folder
     render json: {
       data: {
         folder: @folder
