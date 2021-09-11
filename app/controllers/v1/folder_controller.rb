@@ -13,7 +13,8 @@ class V1::FolderController < V1::ApplicationController
         folder_id: folder.id,
         user_id: folder.user_id,
         name: folder.name,
-        content_count: folder.content.length
+        content_count: folder.content.length,
+        content_list: folder.content.map(&:id)
       }
     end
     all_content_folder = {
