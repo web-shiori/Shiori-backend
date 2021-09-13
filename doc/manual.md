@@ -44,8 +44,6 @@ CMD bundle exec puma
 
 ```shell
 $ sh release.sh
-$ heroku run rails db:migrate
-$ heroku run rails assets:precompile
 ```
 
 # その他
