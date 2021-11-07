@@ -40,17 +40,16 @@ VOLUME /app/tmp
 # TODO: environment
 CMD bundle exec puma
 ```
-- デプロイ
 
+## デプロイ
+- GitHub Actionsを使用しています(`main`ブランチへのpushがトリガー)
+
+### 手動デプロイ
 ```shell
-$ sh release.sh
+$ sh scripts/release.sh
 ```
 
 # その他
-- herokuの環境設定
-```shell
-heroku config:add RAILS_ENV=production
-```
 
 - herokuの環境変数: https://qiita.com/opiyo_taku/items/a753623a4a565424dfec
 - herokuのDBにアクセスする
