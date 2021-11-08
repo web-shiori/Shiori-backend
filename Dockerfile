@@ -25,6 +25,7 @@ COPY Gemfile.lock /app/Gemfile.lock
 RUN bundle install
 COPY . /app
 RUN mkdir -p tmp/sockets
+RUN mkdir -p tmp/pids
 
 # Expose volumes to frontend
 VOLUME /app/public

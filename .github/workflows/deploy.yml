@@ -1,0 +1,47 @@
+name: deploy
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: lint
+        run: echo 'todo lint'
+      - name: test
+        run: echo 'todo impl test'
+  deploy:
+    needs: [test]
+    runs-on: ubuntu-latest
+    env:
+      HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      HEROKU_APP_NAME: web-shiori
+      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: login to heroku container registry
+        run: docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
+      - name: add RAILS_ENV
+        run: HEROKU_API_KEY=$HEROKU_API_KEY heroku config:add RAILS_ENV=production -a $HEROKU_APP_NAME
+      - name: add RAILS_MASTER_KEY
+        run: HEROKU_API_KEY=$HEROKU_API_KEY heroku config:add RAILS_MASTER_KEY=$RAILS_MASTER_KEY -a $HEROKU_APP_NAME
+      - name: push container
+        run: HEROKU_API_KEY=$HEROKU_API_KEY heroku container:push web -a $HEROKU_APP_NAME
+      - name: release container
+        run: HEROKU_API_KEY=$HEROKU_API_KEY heroku container:release web -a $HEROKU_APP_NAME
+      - name: migrate
+        run: HEROKU_API_KEY=$HEROKU_API_KEY heroku run rails db:migrate -a $HEROKU_APP_NAME
+      - name: assets:precompile
+        run: HEROKU_API_KEY=$HEROKU_API_KEY heroku run rails assets:precompile -a $HEROKU_APP_NAME
+
+  healthcheck:
+    needs: [deploy]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check the deployed service URL
+        uses: jtalk/url-health-check-action@v2
+        with:
+          url: https://web-shiori.herokuapp.com/heartbeat
