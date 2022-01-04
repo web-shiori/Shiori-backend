@@ -9,9 +9,9 @@ CarrierWave.configure do |config|
   config.fog_credentials = {
     # Amazon S3用の設定
     provider: 'AWS',
-    region: Rails.application.credentials.aws[:region],
-    aws_access_key_id: Rails.application.credentials.aws[:aws_access_key_id],
-    aws_secret_access_key: Rails.application.credentials.aws[:aws_secret_access_key],
+    region: Rails.application.credentials.aws-s3-user[:region],
+    aws_access_key_id: Rails.application.credentials.aws-s3-user[:aws_access_key_id],
+    aws_secret_access_key: Rails.application.credentials.aws-s3-user[:aws_secret_access_key],
     path_style: true
   }
 end
