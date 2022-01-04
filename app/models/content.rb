@@ -6,10 +6,13 @@ class Content < ApplicationRecord
   has_many :content_folder, dependent: :destroy
   has_many :folder, through: :content_folder
 
+  mount_uploader :pdf, PdfUploader
+
   validates :user_id, presence: true
   validates :title, presence: true, length: { maximum: 255 }
   validates :url, presence: true
   validates :sharing_url, presence: true
+  validate   :pdf_size
 
   before_validation :set_sharing_url
   before_save :set_thumbnail_img_url
@@ -43,4 +46,10 @@ class Content < ApplicationRecord
       end
   end
 
+  # アップロードされたPDFのスクリーンショットのサイズをバリデーションする
+  private def pdf_size
+    if pdf.size > 10.megabytes
+      errors.add(:pdf, "should be less than 5MB")
+    end
+  end
 end
