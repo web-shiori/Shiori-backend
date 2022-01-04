@@ -17,5 +17,3 @@ services:
       - "3000:3000"
     depends_on:
       - db
-    environment:
-      S3_BUCKET: 'web-snapshot-s3-us-east-1'
