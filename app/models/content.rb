@@ -39,6 +39,8 @@ class Content < ApplicationRecord
     self.content_type =
       if self.video_playback_position != 0
         "video"
+      elsif self.audio_playback_position != 0
+        "audio"
       elsif self.file_url != nil
         "file"
       else
