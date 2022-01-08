@@ -16,7 +16,7 @@ class Content < ApplicationRecord
 
   before_validation :set_sharing_url
   before_save :set_thumbnail_img_url
-  before_save :set_content_type
+  before_create :set_content_type
 
   scope :search, ->(q) {
     where('LOWER(title) LIKE ?', "%#{q}%") unless q.blank?
@@ -24,8 +24,8 @@ class Content < ApplicationRecord
 
   # シェア用のURLを追加する
   private def set_sharing_url
-    # TODO: シェア用のURLを生成する。暫定でurlをそのまま入れる
-    self.sharing_url = self.url
+    return unless self.content_type == "pdf"
+    self.sharing_url = "#{self.url}\##{self.pdf_page_num}"
   end
 
   # サムネイル画像がない場合はサムネイル画像のURLを設定する
@@ -36,8 +36,11 @@ class Content < ApplicationRecord
 
   # コンテンツのタイプを設定する
   private def set_content_type
+    return if self.content_type
     self.content_type =
-      if self.video_playback_position != 0
+      if self.pdf || self.pdf_page_num != 0
+        "pdf"
+      elsif self.video_playback_position != 0
         "video"
       elsif self.audio_playback_position != 0
         "audio"

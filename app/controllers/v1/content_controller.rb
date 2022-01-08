@@ -1,6 +1,7 @@
 class V1::ContentController < V1::ApplicationController
   before_action :authenticate_v1_user!
-  before_action :correct_user, only: [:update, :destroy]
+  before_action :verify_update, only: [:update]
+  before_action :correct_user, only: [:destroy]
   skip_before_action :verify_authenticity_token
 
   def index
@@ -37,7 +38,7 @@ class V1::ContentController < V1::ApplicationController
   end
 
   def update
-    if @content.update(content_params)
+    if @content.update(update_params)
       render json: { data: @content }
     else
       render status: :bad_request, json: { "message": "error: #{@content.errors.messages}" }
@@ -49,9 +50,26 @@ class V1::ContentController < V1::ApplicationController
     head :no_content
   end
 
+  private def verify_update
+    current_v1_user.lambda? ? verify_update_pdf_page_num : correct_user
+  end
+
+  private def verify_update_pdf_page_num
+    @content = Content.find_by(id: params[:id])
+    render status: :forbidden, json: { "message": "invalid content" } if @content.nil? || @content.content_type != "pdf"
+  end
+
   private def correct_user
     @content = current_v1_user.content.find_by(id: params[:id])
-    render status: :forbidden, json: { "message": 'fobidden' } if @content.nil?
+    render status: :forbidden, json: { "message": "incorrect user" } if @content.nil?
+  end
+
+  private def update_params
+    if current_v1_user.lambda?
+      pdf_page_num_params
+    else
+      content_params
+    end
   end
 
   private def content_params
@@ -71,5 +89,9 @@ class V1::ContentController < V1::ApplicationController
       :liked,
       :pdf
     )
+  end
+
+  private def pdf_page_num_params
+    params.permit(:pdf_page_num)
   end
 end
