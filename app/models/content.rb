@@ -24,8 +24,12 @@ class Content < ApplicationRecord
 
   # シェア用のURLを追加する
   private def set_sharing_url
-    return unless self.content_type == "pdf"
-    self.sharing_url = "#{self.url}\##{self.pdf_page_num}"
+    self.sharing_url =
+      if self.content_type == "pdf"
+        "#{self.url}\##{self.pdf_page_num}"
+      else
+        self.url
+      end
   end
 
   # サムネイル画像がない場合はサムネイル画像のURLを設定する
