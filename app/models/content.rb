@@ -42,7 +42,7 @@ class Content < ApplicationRecord
   private def set_content_type
     return if self.content_type
     self.content_type =
-      if self.pdf || self.pdf_page_num != 0
+      if self.pdf.url || self.pdf_page_num != 0
         "pdf"
       elsif self.video_playback_position != 0
         "video"
@@ -58,7 +58,7 @@ class Content < ApplicationRecord
   # アップロードされたPDFのスクリーンショットのサイズをバリデーションする
   private def pdf_size
     if pdf.size > 10.megabytes
-      errors.add(:pdf, "should be less than 5MB")
+      errors.add(:pdf, "should be less than 10MB")
     end
   end
 end
