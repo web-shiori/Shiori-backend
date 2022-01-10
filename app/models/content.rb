@@ -12,7 +12,7 @@ class Content < ApplicationRecord
   validates :title, presence: true, length: { maximum: 255 }
   validates :url, presence: true
   validates :sharing_url, presence: true
-  validate   :pdf_size
+  validate  :pdf_size
 
   before_validation :set_sharing_url
   before_save :set_thumbnail_img_url
