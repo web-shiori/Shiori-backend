@@ -82,6 +82,7 @@ class V1::ContentController < V1::ApplicationController
       :max_scroll_position_x,
       :max_scroll_position_y,
       :video_playback_position,
+      :audio_playback_position,
       :specified_text,
       :specified_dom_class,
       :specified_dom_id,
