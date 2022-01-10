@@ -44,9 +44,9 @@ class Content < ApplicationRecord
     self.content_type =
       if self.pdf.url || self.pdf_page_num != 0
         "pdf"
-      elsif self.video_playback_position != 0
+      elsif self.video_playback_position && self.video_playback_position != 0
         "video"
-      elsif self.audio_playback_position != 0
+      elsif self.audio_playback_position && self.audio_playback_position != 0
         "audio"
       elsif self.file_url != nil
         "file"
