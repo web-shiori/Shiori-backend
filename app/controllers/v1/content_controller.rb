@@ -94,6 +94,8 @@ class V1::ContentController < V1::ApplicationController
       :browser,
       :window_inner_width,
       :window_inner_height,
+      :window_outer_width,
+      :window_outer_height,
     )
   end
 

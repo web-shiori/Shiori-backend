@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_10_090717) do
+ActiveRecord::Schema.define(version: 2022_01_10_174730) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,8 @@ ActiveRecord::Schema.define(version: 2022_01_10_090717) do
     t.integer "window_inner_height"
     t.integer "audio_playback_position", default: 0
     t.integer "pdf_page_num", default: 0
+    t.integer "window_outer_width"
+    t.integer "window_outer_height"
     t.index ["id", "user_id"], name: "index_content_on_id_and_user_id"
     t.index ["user_id"], name: "index_content_on_user_id"
   end
