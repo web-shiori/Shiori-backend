@@ -26,7 +26,7 @@ class Content < ApplicationRecord
   private def set_sharing_url
     self.sharing_url =
       if self.content_type == "pdf"
-        "#{self.url}\##{self.pdf_page_num}"
+        "#{self.url}\#page=#{self.pdf_page_num}"
       else
         self.url
       end
