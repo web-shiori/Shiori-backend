@@ -88,7 +88,12 @@ class V1::ContentController < V1::ApplicationController
       :specified_dom_id,
       :specified_dom_tag,
       :liked,
-      :pdf
+      :pdf,
+      :device,
+      :user_agent,
+      :browser,
+      :window_inner_width,
+      :window_inner_height,
     )
   end
 
