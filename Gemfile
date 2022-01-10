@@ -56,6 +56,7 @@ group :development, :test do
   gem 'ruby-debug-ide'
   gem 'rspec-rails'
   gem 'spring-commands-rspec'
+  gem 'factory_bot_rails'
 end
 
 group :development do
