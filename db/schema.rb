@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_08_090239) do
+ActiveRecord::Schema.define(version: 2022_01_10_090717) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 2022_01_08_090239) do
     t.integer "scroll_position_y"
     t.integer "max_scroll_position_x"
     t.integer "max_scroll_position_y"
-    t.integer "video_playback_position"
+    t.integer "video_playback_position", default: 0
     t.string "specified_text"
     t.string "specified_dom_id"
     t.string "specified_dom_class"
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 2022_01_08_090239) do
     t.string "browser"
     t.integer "window_inner_width"
     t.integer "window_inner_height"
-    t.float "audio_playback_position"
+    t.integer "audio_playback_position", default: 0
     t.integer "pdf_page_num", default: 0
     t.index ["id", "user_id"], name: "index_content_on_id_and_user_id"
     t.index ["user_id"], name: "index_content_on_user_id"
