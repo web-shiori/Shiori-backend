@@ -96,6 +96,8 @@ class V1::ContentController < V1::ApplicationController
       :window_inner_height,
       :window_outer_width,
       :window_outer_height,
+      :offset_width,
+      :offset_height
     )
   end
 
