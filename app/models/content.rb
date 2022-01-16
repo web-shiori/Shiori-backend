@@ -17,6 +17,7 @@ class Content < ApplicationRecord
   before_validation :set_sharing_url
   before_save :set_thumbnail_img_url
   before_create :set_content_type
+  before_create :set_video_sharing_url
 
   scope :search, ->(q) {
     where('LOWER(title) LIKE ?', "%#{q}%") unless q.blank?
@@ -30,6 +31,31 @@ class Content < ApplicationRecord
       else
         self.url
       end
+  end
+
+  private def set_video_sharing_url
+    return unless self.content_type == "video"
+    if self.url.match(/youtube/)
+      video_id = self.url.split('v=')[1]
+      unless video_id.blank?
+        ampersandPosition = video_id.index('&')
+        if ampersandPosition && ampersandPosition != -1
+          video_id = video_id.slice(0..ampersandPosition)
+        end
+        self.sharing_url = "https://youtu.be/#{video_id}?t=#{self.video_playback_position}";
+      end
+    elsif self.url.match(/pornhub/) || self.url.match(/tube8/) || self.url.match(/redtube/) || self.url.match(/xhamster/)
+      self.sharing_url = "#{url}&t=#{self.video_playback_position}"
+    elsif self.url.match(/nicovideo/)
+      self.sharing_url = "#{url}&from=#{self.video_playback_position}"
+    elsif self.url.match(/dailymotion/)
+      self.sharing_url = "#{url}&start=#{self.video_playback_position}"
+    elsif self.url.match(/twitch/)
+      h = (self.video_playback_position / 3600).floor
+      m = ((self.video_playback_position % 3600) / 60).floor
+      s = self.video_playback_position % 60
+      self.sharing_url = "#{url}&t=#{h}h#{m}m#{s}"
+    end
   end
 
   # サムネイル画像がない場合はサムネイル画像のURLを設定する
