@@ -44,17 +44,19 @@ class Content < ApplicationRecord
         end
         self.sharing_url = "https://youtu.be/#{video_id}?t=#{self.video_playback_position}";
       end
-    elsif self.url.match(/pornhub/) || self.url.match(/tube8/) || self.url.match(/redtube/) || self.url.match(/xhamster/)
+    elsif self.url.match(/pornhub/)
       self.sharing_url = "#{url}&t=#{self.video_playback_position}"
+    elsif self.url.match(/tube8/) || self.url.match(/redtube/) || self.url.match(/xhamster/)
+      self.sharing_url = "#{url}?t=#{self.video_playback_position}"
     elsif self.url.match(/nicovideo/)
-      self.sharing_url = "#{url}&from=#{self.video_playback_position}"
+      self.sharing_url = "#{url}?from=#{self.video_playback_position}"
     elsif self.url.match(/dailymotion/)
-      self.sharing_url = "#{url}&start=#{self.video_playback_position}"
+      self.sharing_url = "#{url}?start=#{self.video_playback_position}"
     elsif self.url.match(/twitch/)
       h = (self.video_playback_position / 3600).floor
       m = ((self.video_playback_position % 3600) / 60).floor
       s = self.video_playback_position % 60
-      self.sharing_url = "#{url}&t=#{h}h#{m}m#{s}"
+      self.sharing_url = "#{url}?t=#{h}h#{m}m#{s}"
     end
   end
 
