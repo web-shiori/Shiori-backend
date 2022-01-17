@@ -56,7 +56,7 @@ class Content < ApplicationRecord
       h = (self.video_playback_position / 3600).floor
       m = ((self.video_playback_position % 3600) / 60).floor
       s = self.video_playback_position % 60
-      self.sharing_url = "#{url}?t=#{h}h#{m}m#{s}"
+      self.sharing_url = "#{url}?t=#{h}h#{m}m#{s}s"
     end
   end
 
