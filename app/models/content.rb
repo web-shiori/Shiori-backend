@@ -46,7 +46,7 @@ class Content < ApplicationRecord
       end
     elsif self.url.match(/pornhub/)
       self.sharing_url = "#{url}&t=#{self.video_playback_position}"
-    elsif self.url.match(/tube8/) || self.url.match(/redtube/) || self.url.match(/xhamster/)
+    elsif self.url.match(/tube8/) || self.url.match(/redtube/) || self.url.match(/xhamster/) || self.url.match(/www.openrec.tv/)
       self.sharing_url = "#{url}?t=#{self.video_playback_position}"
     elsif self.url.match(/nicovideo/)
       self.sharing_url = "#{url}?from=#{self.video_playback_position}"
